@@ -6,7 +6,7 @@ const readFile = (filePath) => fs.readFileSync(filePath, 'utf8');
 const parseCSV = (file) => Papa.parse(file, { header: true });
 const csvParser = (filePath) => parseCSV(readFile(filePath));
 
-const testAllCSVs = (folderPath) => {
+const testParseAllCSVs = (folderPath) => {
   const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.csv'));
   files.forEach(file => {
     console.log(`\n--- ${file} ---`);
@@ -15,10 +15,11 @@ const testAllCSVs = (folderPath) => {
   });
 };
 
+
 // console.log(csvParser('./csv/normal.csv'));
 // testAllCSVs('./csv');
 
 module.exports = {
   csvParser,
-  testAllCSVs
+  testAllCSVs: testParseAllCSVs
 };

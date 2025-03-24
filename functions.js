@@ -1,4 +1,6 @@
 const _ = require('lodash');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * @param {number} index - Índice donde insertar
@@ -81,7 +83,45 @@ const insertcolumn = (file, n, column) => {
     .value();
 };
 
+
+/**
+ * @param {string} file - CSV en formato string.
+ * @returns {string} HTML con la tabla generada.
+ */
+const tohtmltable = (file) => {
+  const rows = file.split(/\r?\n/).filter(row => row.trim() !== "");
+  let html = "<table>\n";
+  rows.forEach(row => {
+    const cells = row.split(",");
+    html += "    <tr>\n";
+    cells.forEach(cell => {
+      html += "        <td>" + cell + " </td>\n";
+    });
+    html += "    </tr>\n";
+  });
+  
+  html += "</table>";
+  return html;
+};
+
+/**
+ * @param {string} csvFilePath - Ruta del archivo CSV.
+ */
+const createHtmlFile = (csvFilePath, htmlFileName) => {
+  const htmlPath = path.join(__dirname, 'html', htmlFileName);
+  try {
+    const csvContent = fs.readFileSync(csvFilePath, 'utf8');
+    const htmlTable = tohtmltable(csvContent);
+    fs.writeFileSync(htmlPath, htmlTable, 'utf8');
+  } catch (error) {
+    console.error("Error al crear el archivo HTML:", error.message);
+  }
+};
+
 module.exports = {
   insertcolumn,
-  validateInsertColumn
+  validateInsertColumn,
+  tohtmltable,
+  createHtmlFile,
 };
+
