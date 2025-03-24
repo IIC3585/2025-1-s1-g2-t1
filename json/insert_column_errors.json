@@ -1,0 +1,33 @@
+[
+    {
+      "name": "❌ Índice negativo",
+      "index": -1,
+      "column": ["X", "Y", "Z"]
+    },
+    {
+      "name": "❌ Índice mayor que columnas",
+      "index": 10,
+      "column": ["X", "Y", "Z"]
+    },
+    {
+      "name": "❌ Tamaño de columna incorrecto (menos filas)",
+      "index": 1,
+      "column": ["A", "B"]
+    },
+    {
+      "name": "❌ Tamaño de columna incorrecto (más filas)",
+      "index": 1,
+      "column": ["A", "B", "C", "D", "E"]
+    },
+    {
+      "name": "❌ Columna no es un arreglo",
+      "index": 1,
+      "column": "Esto no es un array"
+    },
+    {
+      "name": "❌ Índice no numérico",
+      "index": "uno",
+      "column": ["A", "B", "C"]
+    }
+  ]
+  

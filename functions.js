@@ -26,14 +26,48 @@ function* rowsGenerator(file) {
  */
 const joinRows = rows => rows.join("\n");
 
+
 /**
- * insertcolumn(file, n, column) - Inserta una columna después de la columna n.
+ * @param {string} file - CSV en formato string.
+ * @param {number} n - Índice de columna en el que se insertará.
+ * @param {Array<string>} column - Arreglo con los valores a insertar (uno por fila).
+ * @throws {Error}
+ * @returns {boolean}
+ */
+
+const validateInsertColumn = (file, n, column) => {
+  if (typeof file !== 'string') {
+    throw new Error("El archivo CSV debe ser un string.");
+  }
+  if (!Array.isArray(column)) {
+    throw new Error("La columna a insertar debe ser un array.");
+  }
+  if (!Number.isInteger(n) || n < 0) {
+    throw new Error("El índice debe ser un entero no negativo.");
+  }
+    const rows = file.split(/\r?\n/).filter(row => row.trim() !== "");
+  
+  if (rows.length !== column.length) {
+    throw new Error(`El número de elementos en la columna (${column.length}) no coincide con el número de filas (${rows.length}) en el CSV.`);
+  }
+  
+  for (const row of rows) {
+    const cells = row.split(",");
+    if (n > cells.length) {
+      throw new Error(`El índice ${n} es mayor que la cantidad de columnas (${cells.length}) en la fila: ${row}`);
+    }
+  }
+  return true;
+};
+
+/**
  * @param {string} file
  * @param {number} n
  * @param {Array<string>} column
  * @returns {string}
  */
 const insertcolumn = (file, n, column) => {
+  validateInsertColumn(file, n, column);
   const rows = [...rowsGenerator(file)];
   return _.chain(rows)
     .map((row, idx) => {
@@ -48,5 +82,6 @@ const insertcolumn = (file, n, column) => {
 };
 
 module.exports = {
-  insertcolumn
+  insertcolumn,
+  validateInsertColumn
 };
