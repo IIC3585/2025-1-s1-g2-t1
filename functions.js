@@ -3,14 +3,16 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * @param {number} index - Índice donde insertar
- * @param {any} item - Valor a insertar.
- * @param {Array} arr - Arreglo original.
- * @returns {Array} - CSV en formato de arreglo.
+ * @param {Array<string>} rows 
+ * @returns {string}
  */
-const insertAt = _.curry((index, item, arr) => {
-  return [...arr.slice(0, index), item, ...arr.slice(index)];
-});
+const joinRows = rows => rows.join("\n");
+
+/**
+ * @param {Array<Array<string>>} rows 
+ * @returns {Array<string>}
+ */
+const joinColumns = rows => _.map(rows, cells => cells.join(","));
 
 /**
  * @param {string} file - CSV como string.
@@ -22,12 +24,164 @@ function* rowsGenerator(file) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+
+/** 
+ * @param {string} file - CSV como string.
+ * @param {number} n - Índice de fila a eliminar.
+ * @returns {string} - CSV en formato de string.
+ */
+
+const rowDelete = (file, n) => 
+  _.flow([
+    getRows,
+    validateDeleteRow(n),
+    deleteRow(n),
+    joinRows
+  ])(file);
+
+/** 
+ * @param {string} file - CSV como string.
+ * @returns {Array<string>} - CSV en formato de lista.
+ */
+
+const getRows = (file) =>
+  _.chain([...rowsGenerator(file)])
+    .filter(row => row.trim() !== "")
+    .value();
+
+/**
+ * @param {number} n - Índice de la fila a eliminar.
+ * @param {string} rows - CSV en formato de lista.
+ * @throws {Error}
+ * @returns {Array<string>} - CSV en formato de lista.
+ */
+
+const validateDeleteRow = _.curry((n, rows) => {
+    if (!Number.isInteger(n) || n <= 0) throw new Error("El índice debe ser un entero positivo.");
+    if (n >= rows.length) throw new Error(`El índice ${n} es mayor que la cantidad de filas (${rows.length}) en el CSV.`);
+    return rows;
+});
+
+/**
+ * @param {number} n - Índice de la fila a eliminar.
+ * @param {string} rows - CSV en formato de lista.
+ * @returns {Array<string>} - CSV en formato de lista.
+ */
+
+const deleteRow = _.curry((n, rows) => 
+  _.filter(rows, (row, idx) => idx !== n));
+    
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @param {number} n - Índice de la columna a eliminar.
+ * @param {string} rows - CSV en formato de lista.
+ * @throws {Error}
+ * @returns {Array<string>} - CSV en formato de lista.
+ */
+
+const validateDeleteColumn = _.curry((n, rows) => {
+  if (!Number.isInteger(n) || n <= 0) throw new Error("El índice debe ser un entero positivo.");
+  if (rows.length > 0 && n > rows[0].length) throw new Error("El índice es mayor que la cantidad de columnas en el CSV.");
+  return rows;
+});
+
 /**
  * @param {Array<string>} rows 
- * @returns {string}
+ * @returns {Array<Array<string>>} - CSV en formato de lista.
  */
-const joinRows = rows => rows.join("\n");
 
+const getColumns = (rows) => 
+  _.chain(rows)
+    .map(row => row.split(","))
+    .value();
+
+/**
+ * @param {number} n - Índice de la columna a eliminar.
+ * @param {list} columns - CSV en formato de lista.
+ * @returns {Array<Array<string>>} - CSV en formato de lista.
+ */
+
+const deleteColumn = _.curry((n, columns) => 
+  _.map(columns, cells => _.filter(cells, (cell, idx) => idx !== n - 1)));
+
+
+/** 
+ * @param {string} file - CSV como string.
+ * @param {number} n - Índice de columna a eliminar.
+ * @returns {string} - CSV en formato de string.
+ */
+
+
+const columnDelete = (file, n) =>
+  _.flow([
+    getRows,
+    getColumns,
+    validateDeleteColumn(n),
+    deleteColumn(n),
+    joinColumns,
+    joinRows
+  ])(file);
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @param {number} n - Índice donde insertar.
+ * @param {string} row - Fila a insertar.
+ * @param {Array<string>} rows - Arreglo original.
+ * @returns {Array<string>} - CSV en formato de arreglo.
+ */
+
+const insertRowToTheArray = _.curry((n, row, rows) => {
+  return [...rows.slice(0, n + 1), row, ...rows.slice(n + 1)];
+});
+
+/**
+ * @param {number} n - Índice donde insertar.
+ * @param {string} row - Fila a insertar.
+ * @param {Array<string>} rows - CSV en formato de arreglo.
+ * @throws {Error}
+ * @returns {Array<string>} - CSV en formato de arreglo.
+ */
+
+const validateInsertRow = _.curry((n, row, rows) => {
+  if (!Number.isInteger(n) || n < 0) throw new Error("El índice debe ser un entero no negativo.");
+  if (n > rows.length) throw new Error(`El índice ${n} es mayor que la cantidad de filas (${rows.length}) en el CSV.`);
+  if (row.split(",").length !== rows[0].split(",").length && !_.isEmpty(rows)) throw new Error("El número de columnas en la fila a insertar no coincide con el CSV.");
+  return rows;
+});
+
+
+/**
+ * @param {string} file - CSV como string.
+ * @param {number} n - Índice donde insertar.
+ * @param {string} row - Fila a insertar.
+ * @returns {string} - CSV en formato de string con la fila insertada.
+ */
+
+const insertRow = (file,  n, row) => 
+  _.flow([
+    getRows,
+    validateInsertRow(n, row),
+    insertRowToTheArray(n, row),
+    joinRows
+  ])(file);
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @param {number} index - Índice donde insertar
+ * @param {any} item - Valor a insertar.
+ * @param {Array} arr - Arreglo original.
+ * @returns {Array} - CSV en formato de arreglo.
+ */
+const insertAt = _.curry((index, item, arr) => {
+  return [...arr.slice(0, index), item, ...arr.slice(index)];
+});
 
 /**
  * @param {string} file - CSV en formato string.
@@ -83,6 +237,7 @@ const insertcolumn = (file, n, column) => {
     .value();
 };
 
+////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * @param {string} file - CSV en formato string.
@@ -119,6 +274,9 @@ const createHtmlFile = (csvFilePath, htmlFileName) => {
 };
 
 module.exports = {
+  rowDelete,
+  columnDelete,
+  insertRow,
   insertcolumn,
   validateInsertColumn,
   tohtmltable,

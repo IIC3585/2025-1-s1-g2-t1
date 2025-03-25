@@ -1,12 +1,56 @@
 const fs = require('fs');
 const path = require('path');
-const { insertcolumn, createHtmlFile } = require('./functions');
+const { rowDelete, columnDelete, insertRow, insertcolumn, createHtmlFile } = require('./functions');
 
 const filePath = path.join(__dirname, 'csv', 'normal.csv');
-// const testCasesPath = path.join(__dirname, 'json', 'insert_column.json');
-const testCasesPath = path.join(__dirname, 'json', 'insert_column_errors.json');
+const testCasesPath = path.join(__dirname, 'json', 'delete_row.json');
+// const testCasesPath = path.join(__dirname, 'json', 'insert_column_errors.json');
 const csvContent = fs.readFileSync(filePath, 'utf8');
 const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf8'));
+console.log(testCases);
+
+// Eliminar filas
+const delete_rows = () => {
+  testCases.forEach(({ name, index }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = rowDelete(csvContent, index);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
+
+// Eliminar columnas
+const delete_columns = () => {
+  testCases.forEach(({ name, index }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = columnDelete(csvContent, index);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
+
+
+// Insertar filas
+const insert_rows = () => {
+  testCases.forEach(({ name, index, row }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = insertRow(csvContent, index, row);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
 
 // Insertar columnas
 const insert_columns = () => {
@@ -33,5 +77,8 @@ const create_html = () => {
 }
 
 // Ejecutar funciones
+delete_rows();
+// delete_columns();
+// insert_rows();
 // insert_columns();
-create_html();
+// create_html();
