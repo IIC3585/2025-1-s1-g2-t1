@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { rowDelete, columnDelete, insertRow, insertcolumn, createHtmlFile } = require('./functions');
+const { swap, rowsToColumns, columnsToRows, rowDelete, columnDelete, insertRow, insertcolumn, createHtmlFile } = require('./functions');
 
 const filePath = path.join(__dirname, 'csv', 'normal.csv');
 const testCasesPath = path.join(__dirname, 'json', 'delete_row.json');
@@ -8,6 +8,49 @@ const testCasesPath = path.join(__dirname, 'json', 'delete_row.json');
 const csvContent = fs.readFileSync(filePath, 'utf8');
 const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf8'));
 console.log(testCases);
+
+
+// Cambiar columnas (swap)
+const swap_columns = () => {
+  testCases.forEach(({ name, col1, col2 }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = swap(csvContent, col1, col2);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
+
+// Transformar filas en columnas
+const transform_rows_to_columns = () => {
+  testCases.forEach(({ name }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = rowsToColumns(csvContent);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
+
+// Transformar columnas en filas
+const transform_columns_to_rows = () => {
+  testCases.forEach(({ name }, i) => {
+    console.log(`\n🧪 Caso ${i + 1}: ${name}`);
+    try {
+      const result = columnsToRows(csvContent);
+      console.log("✅ Resultado:");
+      console.log(result);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+    }
+  });
+}
 
 // Eliminar filas
 const delete_rows = () => {
