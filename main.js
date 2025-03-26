@@ -25,7 +25,7 @@ const swap_columns = () => {
 }
 
 // Transformar filas en columnas
-const transform_rows_to_columns = () => {
+const rows_to_columns = () => {
   testCases.forEach(({ name }, i) => {
     console.log(`\n🧪 Caso ${i + 1}: ${name}`);
     try {
@@ -39,7 +39,7 @@ const transform_rows_to_columns = () => {
 }
 
 // Transformar columnas en filas
-const transform_columns_to_rows = () => {
+const columns_to_rows = () => {
   testCases.forEach(({ name }, i) => {
     console.log(`\n🧪 Caso ${i + 1}: ${name}`);
     try {
@@ -120,7 +120,10 @@ const create_html = () => {
 }
 
 // Ejecutar funciones
-delete_rows();
+// swap_columns();
+// rows_to_columns();
+// columns_to_rows();
+// delete_rows();
 // delete_columns();
 // insert_rows();
 // insert_columns();
