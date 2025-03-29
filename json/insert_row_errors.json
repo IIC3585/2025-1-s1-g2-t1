@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Insertar fila con mas de 3 columnas",
+        "index": 4,
+        "row": ["Chile", "Argentina", "Perú"]
+    },
+    {
+        "name": "Insertar en una fila negativa",
+        "index": -1,
+        "row": ["Barcelona", "Messi", "Argentina"]
+    },
+    {
+        "name": "Insertar en una fila con un indice no entero",
+        "index": "a",
+        "row": ["Futbol", "Chile", "Argentina"]
+    },
+    {
+        "name": "Insertar una fila con menos de 3 columnas",
+        "index": 2,
+        "row": ["Barcelona", "Messi"]
+    }
+]

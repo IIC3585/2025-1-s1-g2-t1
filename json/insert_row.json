@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Insertar al final (fila 4)",
+        "index": 3,
+        "row": ["993456780", "995674543", "995674543"]
+    },
+    {
+        "name": "Insertar en el medio (fila 2)",
+        "index": 2,
+        "row": ["Chile", "Argentina", "Perú"]
+    },
+    {
+        "name": "Insertar al inicio (fila 0)",
+        "index": 0,
+        "row": ["ID1", "ID2", "ID3"]
+    },
+    {
+        "name": "Insertar con datos faltantes",
+        "index": 2,
+        "row": ["X", "", "Z"]
+    },
+    {
+        "name": "Insertar fila vacía",
+        "index": 1,
+        "row": ["", "", ""]
+    }
+]

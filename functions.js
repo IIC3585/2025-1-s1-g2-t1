@@ -74,14 +74,14 @@ const rowsToColumns = (file) =>
  */
 const columnsToRows = (file) =>
   _.flow([
-    getRows, // Obtener filas
-    (rows) => _.map(rows, (row) => row.split(",")), // Convertir a matriz
+    getRows,
+    (rows) => _.map(rows, (row) => row.split(",")),
     (matrix) => {
       const numColumns = matrix[0].length;
-      return _.times(numColumns, (colIndex) => matrix.map((row) => row[colIndex])); // Transformar columnas en filas
+      return _.times(numColumns, (colIndex) => matrix.map((row) => row[colIndex]));
     },
-    joinColumns, // Convertir la matriz de nuevo a texto CSV
-    joinRows, // Unir filas en un string CSV
+    joinColumns,
+    joinRows,
   ])(file);
 
 
@@ -210,8 +210,8 @@ const insertRowToTheArray = _.curry((n, row, rows) => {
 
 const validateInsertRow = _.curry((n, row, rows) => {
   if (!Number.isInteger(n) || n < 0) throw new Error("El índice debe ser un entero no negativo.");
-  if (n > rows.length) throw new Error(`El índice ${n} es mayor que la cantidad de filas (${rows.length}) en el CSV.`);
-  if (row.split(",").length !== rows[0].split(",").length && !_.isEmpty(rows)) throw new Error("El número de columnas en la fila a insertar no coincide con el CSV.");
+  if (n > rows.length - 1) throw new Error(`El índice ${n} es mayor que la cantidad de filas (${rows.length - 1}) en el CSV.`);
+  if (row.length !== rows[0].split(",").length && !_.isEmpty(rows)) throw new Error("El número de columnas en la fila a insertar no coincide con el CSV.");
   return rows;
 });
 

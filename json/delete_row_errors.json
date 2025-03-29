@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Eliminar fila 4, no existente",
+        "index": 4
+    },
+    {
+        "name": "Eliminar fila 0, no existente",
+        "index": 0
+    }
+]
