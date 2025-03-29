@@ -26,10 +26,9 @@ function* rowsGenerator(file) {
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Intercambia las columnas n y m en una matriz representada en un archivo.
- * @param {Array<Array<any>>} file - La matriz cargada desde el archivo.
- * @param {number} n - Índice de la primera columna a intercambiar.
- * @param {number} m - Índice de la segunda columna a intercambiar.
+ * @param {Array<Array<any>>} file 
+ * @param {number} n - primera columna
+ * @param {number} m - segunda columna
  */
 function swap(file, n, m) {
   if (!Array.isArray(file) || file.length === 0) {
@@ -71,7 +70,7 @@ const rowsToColumns = (file) =>
 /**
  * Transforma un archivo CSV, convirtiendo columnas en filas.
  * @param {string} file - CSV en formato string.
- * @returns {string} - CSV en formato string con columnas convertidas en filas.
+ * @returns {string} - CSV en formato string.
  */
 const columnsToRows = (file) =>
   _.flow([

@@ -60,6 +60,15 @@ La carpeta `./html` se utiliza para guardar los archivos `.html` generados desde
 
 Las funciones principales están exportadas desde `functions.js`:
 
+- `swap(file, n, m)`  
+  Hace un swap de las columnas n y m
+
+- `rowsToColumns(file)`  
+  Transforma las filas en columnas
+  
+- `columnsToRows(file)`  
+  Transforma las columnas en filas
+
 - `insertcolumn(file, index, column)`  
   Inserta una columna en la posición indicada en el CSV.
 

@@ -1,0 +1,27 @@
+[
+    {
+      "name": "Intercambiar primeras dos columnas",
+      "n": 0,
+      "m": 1
+    },
+    {
+      "name": "Intercambiar últimas dos columnas",
+      "n": 2,
+      "m": 3
+    },
+    {
+      "name": "Intercambiar columna inicial con la final",
+      "n": 0,
+      "m": 3
+    },
+    {
+      "name": "Intercambiar columnas en el medio",
+      "n": 1,
+      "m": 2
+    },
+    {
+      "name": "Intercambiar columna consigo misma",
+      "n": 2,
+      "m": 2
+    }
+]

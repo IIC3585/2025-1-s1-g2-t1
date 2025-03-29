@@ -1,0 +1,34 @@
+[
+    {
+      "name": "❌ Columnas de longitudes distintas",
+      "input": [
+        ["A", "B"],
+        ["C"]
+      ]
+    },
+    {
+      "name": "❌ CSV vacío",
+      "input": []
+    },
+    {
+      "name": "❌ Contiene valores no string",
+      "input": [
+        ["ID", "Nombre", "Edad"],
+        [1, "Juan", 30],
+        [2, "María", "25"]
+      ]
+    },
+    {
+      "name": "❌ Columna no es un arreglo",
+      "input": [
+        "Esto no es un array"
+      ]
+    },
+    {
+      "name": "❌ Valores nulos en las columnas",
+      "input": [
+        ["A", "B", null],
+        ["C", "D", "E"]
+      ]
+    }
+]

@@ -3,7 +3,7 @@ const path = require('path');
 const { swap, rowsToColumns, columnsToRows, rowDelete, columnDelete, insertRow, insertcolumn, createHtmlFile } = require('./functions');
 
 const filePath = path.join(__dirname, 'csv', 'normal.csv');
-const testCasesPath = path.join(__dirname, 'json', 'delete_row.json');
+const testCasesPath = path.join(__dirname, 'json', 'insert_column.json');
 // const testCasesPath = path.join(__dirname, 'json', 'insert_column_errors.json');
 const csvContent = fs.readFileSync(filePath, 'utf8');
 const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf8'));
@@ -126,5 +126,5 @@ const create_html = () => {
 // delete_rows();
 // delete_columns();
 // insert_rows();
-// insert_columns();
+ insert_columns();
 // create_html();
