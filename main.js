@@ -12,10 +12,10 @@ console.log(testCases);
 
 // Cambiar columnas (swap)
 const swap_columns = () => {
-  testCases.forEach(({ name, col1, col2 }, i) => {
+  testCases.forEach(({ name, n, m }, i) => {
     console.log(`\n🧪 Caso ${i + 1}: ${name}`);
     try {
-      const result = swap(csvContent, col1, col2);
+      const result = swap(csvContent, n, m);
       console.log("✅ Resultado:");
       console.log(result);
     } catch (error) {

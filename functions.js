@@ -24,64 +24,67 @@ function* rowsGenerator(file) {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-
 /**
- * @param {Array<Array<any>>} file 
- * @param {number} n - primera columna
- * @param {number} m - segunda columna
+ * @param {string} file - El archivo CSV en formato de string.
+ * @param {number} n - Índice de la primera columna.
+ * @param {number} m - Índice de la segunda columna.
+ * @returns {string} - CSV en formato de string con las columnas intercambiadas.
  */
 function swap(file, n, m) {
-  if (!Array.isArray(file) || file.length === 0) {
-      console.error("El archivo debe ser una matriz no vacía.");
+  if (typeof file !== 'string') {
+    throw new Error("El archivo CSV debe ser un string.");
+  }
+  const rows = file.split("\n").map(row => row.split(","));
+
+  if (rows.length === 0 || rows[0].length === 0) {
+      console.error("El archivo CSV está vacío o mal formateado.");
       return;
   }
-
   if (
       typeof n !== "number" || typeof m !== "number" ||
-      n < 0 || m < 0 || n >= file[0].length || m >= file[0].length
+      n < 0 || m < 0 || n >= rows[0].length || m >= rows[0].length
   ) {
       console.error("Los índices de columna deben estar dentro del rango válido.");
       return;
   }
-
-  for (let i = 0; i < file.length; i++) {
-      [file[i][n], file[i][m]] = [file[i][m], file[i][n]];
+  for (let i = 0; i < rows.length; i++) {
+      [rows[i][n], rows[i][m]] = [rows[i][m], rows[i][n]];
   }
+  const result = rows.map(row => row.join(",")).join("\n");
+  return result;
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 /**
- * Transpone un archivo CSV, convirtiendo filas en columnas.
  * @param {string} file - CSV en formato string.
  * @returns {string} - CSV en formato string con filas y columnas intercambiadas.
  */
 const rowsToColumns = (file) =>
   _.flow([
-    getRows, // Obtener filas
-    (rows) => _.map(rows, (row) => row.split(",")), // Convertir a matriz
-    (matrix) => matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex])), // Transponer
-    joinColumns, // Convertir columnas a filas
-    joinRows, // Convertir a string CSV
+    getRows,
+    (rows) => _.map(rows, (row) => row.split(",")), 
+    (matrix) => matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex])), 
+    joinColumns, 
+    joinRows,
   ])(file);
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Transforma un archivo CSV, convirtiendo columnas en filas.
  * @param {string} file - CSV en formato string.
  * @returns {string} - CSV en formato string.
  */
 const columnsToRows = (file) =>
   _.flow([
-    getRows,
-    (rows) => _.map(rows, (row) => row.split(",")),
+    getRows, 
+    (rows) => _.map(rows, (row) => row.split(",")), 
     (matrix) => {
+      console.log(matrix)
       const numColumns = matrix[0].length;
-      return _.times(numColumns, (colIndex) => matrix.map((row) => row[colIndex]));
+      return _.times(numColumns, (colIndex) => matrix.map((row) => row[colIndex])); 
     },
-    joinColumns,
-    joinRows,
+    joinColumns, 
+    joinRows, 
   ])(file);
 
 
