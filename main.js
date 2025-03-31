@@ -2,14 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { swap, rowsToColumns, columnsToRows, rowDelete, columnDelete, insertRow, insertcolumn, createHtmlFile } = require('./functions');
 
-const filePath = path.join(__dirname, 'csv', 'normal.csv');
-const testCasesPath = path.join(__dirname, 'json', 'insert_row_errors.json');
-// const testCasesPath = path.join(__dirname, 'json', 'insert_column_errors.json');
-const csvContent = fs.readFileSync(filePath, 'utf8');
-const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf8'));
-console.log(testCases);
-
-
 // Cambiar columnas (swap)
 const swap_columns = () => {
   testCases.forEach(({ name, n, m }, i) => {
@@ -119,12 +111,32 @@ const create_html = () => {
   });
 }
 
+
+const filePath = path.join(__dirname, 'csv', 'normal.csv');
+// const fileTestCase = 'delete_row_errors.json'
+// const fileTestCase = 'insert_column_errors.json'
+// const fileTestCase = 'swap_errors.json'
+
+const fileTestCase = 'swap.json'
+// ! const fileTestCase = 'rowstocolumns.json'
+// const fileTestCase = 'insert_row_errors.json'
+// const fileTestCase = 'delete_row.json'
+// const fileTestCase = 'insert_column.json'
+
+const testCasesPath = path.join(__dirname, 'json', fileTestCase);
+const csvContent = fs.readFileSync(filePath, 'utf8');
+const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf8'));
+
+console.log('📄 Contenido del archivo CSV:')
+console.log(csvContent);
+
 // Ejecutar funciones
-// swap_columns();
 // rows_to_columns();
 // columns_to_rows();
 // delete_rows();
 // delete_columns();
-insert_rows();
+
+swap_columns();
+// insert_rows();
 // insert_columns();
 // create_html();
