@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Eliminar columna 4, no existente",
+        "index": 4
+    },
+    {
+        "name": "Eliminar columna 0, no existente",
+        "index": 0
+    }
+]

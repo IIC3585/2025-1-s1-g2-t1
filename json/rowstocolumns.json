@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Transformar 3 filas en 3 columnas",
+      "input": [
+        ["A", "B", "C"],
+        ["D", "E", "F"],
+        ["G", "H", "I"]
+      ]
+    },
+    {
+      "name": "Transformar 2 filas en 2 columnas",
+      "input": [
+        ["1", "2"],
+        ["3", "4"]
+      ]
+    },
+    {
+      "name": "Transformar con datos mixtos",
+      "input": [
+        ["ID", "Nombre", "Edad"],
+        ["1", "Juan", "30"],
+        ["2", "María", "25"]
+      ]
+    },
+    {
+      "name": "Transformar con espacios vacíos",
+      "input": [
+        ["X", "", "Y"],
+        ["A", "B", "C"]
+      ]
+    },
+    {
+      "name": "Transformar una única fila",
+      "input": [
+        ["Única fila"]
+      ]
+    }
+]

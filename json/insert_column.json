@@ -1,0 +1,27 @@
+[
+    {
+      "name": "Insertar al final (columna 3)",
+      "index": 3,
+      "column": ["993456780", "995674543", "995674543"]
+    },
+    {
+      "name": "Insertar en el medio (columna 1)",
+      "index": 1,
+      "column": ["Chile", "Argentina", "Perú"]
+    },
+    {
+      "name": "Insertar al inicio (columna 0)",
+      "index": 0,
+      "column": ["ID1", "ID2", "ID3"]
+    },
+    {
+      "name": "Insertar con datos faltantes",
+      "index": 2,
+      "column": ["X", "", "Z"]
+    },
+    {
+      "name": "Insertar columna vacía",
+      "index": 1,
+      "column": ["", "", ""]
+    }
+  ]

@@ -1,0 +1,37 @@
+[
+    {
+      "name": "❌ Índices negativos",
+      "n": -1,
+      "m": 2
+    },
+    {
+      "name": "❌ Índices fuera de rango",
+      "n": 10,
+      "m": 2
+    },
+    {
+      "name": "❌ Ambos índices fuera de rango",
+      "n": 10,
+      "m": 11
+    },
+    {
+      "name": "❌ Índice no numérico (string)",
+      "n": "uno",
+      "m": 2
+    },
+    {
+      "name": "❌ Índice no numérico (null)",
+      "n": null,
+      "m": 2
+    },
+    {
+      "name": "❌ Índice no numérico (objeto)",
+      "n": {},
+      "m": 1
+    },
+    {
+      "name": "❌ Índices iguales pero en formato erróneo",
+      "n": "2",
+      "m": 2
+    }
+]
